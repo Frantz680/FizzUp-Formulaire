@@ -1,0 +1,29 @@
+<nav class="navbar grid-x large-12 bg-dark-sombre">
+    <div class="navbar-logo large-6">
+        <span class="navbar-logo-letter">Apprend-elec</span>
+        <img class="navbar-logo-img" src="{{ absolute_url(asset('/build/images/bolt-solid.png'))}}" alt="logo">
+    </div>
+    <div class="navbar-menu large-6">
+        <ul class="navbar-menu-ul">
+            {# <li>
+                {% if app.user %}
+                    <a href="{{ path('admin') }}" class="navbar-menu-ul-btn-connect">
+                        Mon compte
+                    </a>
+                {% else %}
+                    <a href="{{ path('app_login') }}" class="navbar-menu-ul-btn-connect">
+                        Connexion
+                    </a>
+                {% endif %}
+            </li> #}
+
+            <li>
+                <div class="navbar-menu-ul-hamburger" id="openNavFx">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
