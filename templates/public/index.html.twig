@@ -1,20 +1,91 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PublicController!{% endblock %}
+{% block title %}Apprend-Elec{% endblock %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% block stylesheets %}
+    {{ parent() }}
+{% endblock %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/ACER/OneDrive/Documents/Fichiers/Git/Mon dépot/FizzUp/src/Controller/PublicController.php'|file_link(0) }}">src/Controller/PublicController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/ACER/OneDrive/Documents/Fichiers/Git/Mon dépot/FizzUp/templates/public/index.html.twig'|file_link(0) }}">templates/public/index.html.twig</a></code></li>
-    </ul>
+{% block contenu %}
+<!--Top of page-->
+<div class="home large-12" id="myOverlay">
+    <div class="home-flex">
+        <div class="home-flex-title">
+
+            <h1 class="home-flex-title-big">FizzUp !</h1>
+
+            <h3 class="home-flex-title-subTitle">Formulaire d'avis de produit</h3>
+
+            {% if message is defined %}
+                <div class="message-defile text-center">
+                    <div>
+                        {{ message }}
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
 </div>
+
+
+    {###############################
+    ######## A PROPOS DE MOI #######
+    ################################}
+
+    {# <div class="moi grid-x large-12">
+        <div class="moi-title large-12 medium-12 small-12 padding-15">
+            a propos de moi
+        </div>
+        {% for info in aProposDeMoi %}
+        <div class="moi-img large-4 medium-4 small-12 text-center">
+            <img class="moi-img-photo" src="{{ asset('upload/moi/' ~ info.image )}}" alt="vue-img"/>
+        </div>
+        <div class="moi-contenu large-8 medium-8 small-12 padding-15">
+            <div class="moi-contenu-text">
+                <p>
+                    {{ info.description|raw }}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+    </div> #}
+
+    {###############################
+    ######## CONTACTEZ-MOI #########
+    ################################}
+
+    <div id="contactez-moi" class="contact grid-x large-12">
+        <div class="contact-title large-12 medium-12 small-12 padding-15">
+            contactez-moi
+        </div>
+
+        {# <form class="large-12 medium-12 small-12 grid-x text-center" action="{{ path('contact') }}" method="post">
+
+            <div class="large-6 medium-6 small-6 padding-15 text-left">
+                <label class="label-contact" for="name">Nom :</label>
+                <input type="text" id="name" name="user_name" placeholder="Votre Nom">
+            </div>
+            <div class="large-6 medium-6 small-6 padding-15 text-left">
+                <label class="label-contact" for="mail">E-mail&nbsp;:</label>
+                <input type="email" id="mail" name="user_mail" placeholder="Veuillez entre votre adresse mail pour avoir une réponse">
+            </div>
+            <div class="large-12 medium-12 small-12 padding-15 text-left">
+                <label class="label-contact" for="msg">Message :</label>
+                <textarea id="msg" name="user_message" placeholder="Veuillez entre votre message"></textarea>
+            </div>
+
+            <div class="large-12 medium-12 small-12">
+                <button class="button-submit" type="submit">Envoyer le message</button>
+            </div>
+
+        </form> #}
+    </div>
+
+</div>
+
 {% endblock %}
