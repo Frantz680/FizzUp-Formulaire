@@ -16,9 +16,9 @@
     <div class="home-flex">
         <div class="home-flex-title">
 
-            <h1 class="home-flex-title-big">FizzUp !</h1>
+            <h1 class="home-flex-title-big">Formulaire d'avis de produit !</h1>
 
-            <h3 class="home-flex-title-subTitle">Formulaire d'avis de produit</h3>
+            <div class="home-flex-title-subTitle">Juste ici</div>
 
             {% if message is defined %}
                 <div class="message-defile text-center">
@@ -31,38 +31,6 @@
         </div>
     </div>
 </div>
-
-
-    {###############################
-    ######## A PROPOS DE MOI #######
-    ################################}
-
-    {# <div class="moi grid-x large-12">
-        <div class="moi-title large-12 medium-12 small-12 padding-15">
-            a propos de moi
-        </div>
-        {% for info in aProposDeMoi %}
-        <div class="moi-img large-4 medium-4 small-12 text-center">
-            <img class="moi-img-photo" src="{{ asset('upload/moi/' ~ info.image )}}" alt="vue-img"/>
-        </div>
-        <div class="moi-contenu large-8 medium-8 small-12 padding-15">
-            <div class="moi-contenu-text">
-                <p>
-                    {{ info.description|raw }}
-                </p>
-            </div>
-        </div>
-        {% endfor %}
-    </div> #}
-
-    {###############################
-    ######## CONTACTEZ-MOI #########
-    ################################}
-
-    <div id="contactez-moi" class="contact grid-x large-12">
-        <div class="contact-title large-12 medium-12 small-12 padding-15">
-            contactez-moi
-        </div>
 
         {# <form class="large-12 medium-12 small-12 grid-x text-center" action="{{ path('contact') }}" method="post">
 
@@ -84,7 +52,6 @@
             </div>
 
         </form> #}
-    </div>
 
 </div>
 
