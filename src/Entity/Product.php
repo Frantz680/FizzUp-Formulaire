@@ -23,6 +23,11 @@ class Product
     #[ORM\Column()]
     private string $picture;
 
+
+    #[ORM\ManyToOne(targetEntity:Avis::class, inversedBy:"product", cascade:["persist"])]
+    #[ORM\JoinColumn(name:"avis_id", referencedColumnName:"id")]
+    private $avis;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -63,4 +68,18 @@ class Product
 
         return $this;
     }
+
+    public function getAvis(): ?Avis
+    {
+        return $this->avis;
+    }
+
+    public function setAvis(?Avis $avis): self
+    {
+        $this->avis = $avis;
+
+        return $this;
+    }
+
+
 }

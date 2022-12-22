@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\AvisRepository;
+use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -15,12 +18,7 @@ class Avis
     #[ORM\Column]
     private ?int $id = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    #[Assert\Email(message: 'The email {{ value }} is not a valid email.')]
+    #[ORM\Column(type: 'string', unique: true)]
     protected $email;
 
     #[ORM\Column(length: 255)]
@@ -36,11 +34,34 @@ class Avis
     #[ORM\Column()]
     private string $picture;
 
-    /**
-     * @var string A "Y-m-d H:i:s" formatted value
-     */
-    #[Assert\DateTime]
+    #[ORM\Column(type:"datetime", nullable:false)]
     private $createdAt;
+    
+    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: "avis", cascade:["persist"], orphanRemoval: true)]
+    private $product;
+
+    public function __construct()
+    {
+        $this->createdAt = new \Datetime;
+        $this->product = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
 
     public function getPseudo(): ?string
     {
@@ -77,4 +98,49 @@ class Avis
 
         return $this;
     }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Product>
+     */
+    public function getProduct(): Collection
+    {
+        return $this->product;
+    }
+
+    public function addProduct(Product $product): self
+    {
+        if (!$this->product->contains($product)) {
+            $this->product->add($product);
+            $product->setAvis($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduct(Product $product): self
+    {
+        if ($this->product->removeElement($product)) {
+            // set the owning side to null (unless already changed)
+            if ($product->getAvis() === $this) {
+                $product->setAvis(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
+
 }
