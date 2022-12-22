@@ -67,6 +67,25 @@
                                 </div>
 
                                 <div class="form-group col-lg-12">
+                                    {{ form_label(form.note) }}
+                                    <div class="form-error">
+                                        {% if form.note.vars.errors|length > 0 %}
+                                            <ul class="list-unstyled">
+                                                {% for error in form.note.vars.errors %}
+                                                    <li class="text-danger">
+                                                        <label class="control-label" for="inputError">
+                                                            <i class="fa fa-times-circle"></i> {{ error.message }}
+                                                        </label>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
+                                    </div>
+                                    {{ form_widget(form.note) }}
+                                    <small>{{ form_help(form.note) }}</small>
+                                </div>
+
+                                <div class="form-group col-lg-12">
                                     {{ form_label(form.email) }}
                                     <div class="form-error">
                                         {% if form.email.vars.errors|length > 0 %}
