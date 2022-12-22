@@ -24,14 +24,10 @@ class Avis
     #[ORM\Column(length: 255)]
     private string $pseudo;
 
-    #[Assert\GreaterThan(0)]
-    #[Assert\When(expression: 'this.type == "percent"',constraints: [new Assert\LessThanOrEqual(100, message: 'The value should be between 1 and 100!')],)]
-    private ?int $note;
-
     #[ORM\Column(type: 'text')]
     private string $commentaire;
 
-    #[ORM\Column()]
+    #[ORM\Column(nullable:true)]
     private string $picture;
 
     #[ORM\Column(type:"datetime", nullable:false)]
@@ -92,7 +88,7 @@ class Avis
         return $this->picture;
     }
 
-    public function setPicture(string $picture): self
+    public function setPicture(?string $picture): self
     {
         $this->picture = $picture;
 
@@ -141,6 +137,6 @@ class Avis
         return $this;
     }
 
-    
+
 
 }

@@ -37,7 +37,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToRoute('Voir le site', 'fa fa-house', 'public');
 
         yield MenuItem::section('Dashboard');
-        yield MenuItem::linkToDashboard('Voir la dashboard', 'fa fa-dashboard');
+        yield MenuItem::linkToDashboard('Tableau de bord', 'fa fa-dashboard');
 
         yield MenuItem::section('Produits');
         yield MenuItem::linkToCrud('Liste des Produits', 'fas fa-list', Product::class);

@@ -8,8 +8,12 @@ use Symfony\Component\Form\AbstractType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
@@ -24,12 +28,32 @@ class AvisType extends AbstractType
                 'label' => 'Nom du produit',
                 'class' => Product::class,
                 'choice_label' => 'title',
-                'mapped' => false
+                'mapped' => false,
+                'required' => true
             ))
 
-            ->add('pseudo')
+            ->add('pseudo', TextType::class, [
+                'attr' => ['class' => 'form-control'],
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Entrez votre prénom où pseudo',
+                    ]),
+                    new Length([
+                        'min' => 2,
+                        'minMessage' => "Vous devez avoir au moins {{ limit }} caracteres ou plus.",
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                    ]),
+                ],
+                'label' => 'Prénom',
+            ])
 
-            ->add('email')
+            ->add('email', EmailType::class, [
+                'invalid_message' => "L'email n'est pas valide.",
+                'attr' => ['class' => 'form-control'],
+                'required' => true
+            ])
 
             ->add('commentaire', CKEditorType::class, [
                 'attr' => ['class' => 'form-control'],
@@ -37,14 +61,25 @@ class AvisType extends AbstractType
                 'config' => [
                     'language' => 'fr',
                     'toolbar' => 'standard'
-                ]
-
+                ],
+                'required' => true,
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez écrire un commentaire.',
+                    ]),
+                    new Length([
+                        'min' => 2,
+                        'minMessage' => "Vous devez avoir au moins {{ limit }} caracteres ou plus.",
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                    ]),
+                ],
             ])
 
             ->add('picture', FileType::class,[
                 'label' => 'Image (Fichier image)',
                 'mapped' => false,
-                'required' => false,
+                'required' => false
             ])
 
             ->add('annuler', ButtonType::class, [
