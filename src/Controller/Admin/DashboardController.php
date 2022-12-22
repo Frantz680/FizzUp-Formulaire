@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Product;
+use App\Entity\Avis;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -18,19 +19,6 @@ class DashboardController extends AbstractDashboardController
     ) {
     }
 
-    // ...
-
-    // #[Route('/admin')]
-    // public function admin(): Response
-    // {
-    //     $chart = $this->chartBuilder->createChart(Chart::TYPE_LINE);
-    //     // ...set chart data and options somehow
-
-    //     return $this->render('admin/index.html.twig', [
-    //         'chart' => $chart,
-    //     ]);
-    // }
-
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
@@ -45,9 +33,16 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
-        yield MenuItem::linkToRoute('Home', 'fa ...', 'public');
-        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-dashboard');
-        yield MenuItem::linkToCrud('Produits', 'fas fa-list', Product::class);
-        // yield MenuItem::linkToCrud('Avis', 'fas fa-list', Avis::class);
+        yield MenuItem::section('Home');
+        yield MenuItem::linkToRoute('Voir le site', 'fa fa-house', 'public');
+
+        yield MenuItem::section('Dashboard');
+        yield MenuItem::linkToDashboard('Tableau de bord', 'fa fa-dashboard');
+
+        yield MenuItem::section('Produits');
+        yield MenuItem::linkToCrud('Liste des Produits', 'fas fa-list', Product::class);
+
+        yield MenuItem::section('Avis');
+        yield MenuItem::linkToCrud('Liste des avis', 'fas fa-list', Avis::class);
     }
 }
