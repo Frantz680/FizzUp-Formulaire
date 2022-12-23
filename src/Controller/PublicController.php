@@ -47,38 +47,34 @@ class PublicController extends AbstractController
         //Si le formulaire Adress est envoyer et valide
         if ($form->isSubmitted() && $form->isValid()) {
 
-            // //On recuperer les données
-            // $avisData = $form->get('avis')->getData();
+            //On recuperer les données
+            $img = $form->get('picture')->getData();
 
-            // //On recuperer l'image
-            // $img = $avisData->getImage();
 
-            // //Si le l'image' existe
-            // if ($img) {
+            //Si le l'image existe
+            if ($img) {
 
-            //     //On recupere le nom de l'image
-            //     $originalFilename = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
-            //     $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
+                //On recupere le nom de l'image
+                $originalFilename = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = transliterator_transliterate('Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalFilename);
 
-            //     //On créer un nouveau nom de l'image
-            //     $newFilename = $safeFilename . '-' . uniqid() . '.' . $img->guessExtension();
+                //On créer un nouveau nom de l'image
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $img->guessExtension();
 
-            //     //On deplace le fichier
-            //     $img->move(
-            //         $this->getParameter('Img'),
-            //         $newFilename
-            //     );
+                //On deplace le fichier
+                $img->move(
+                    $this->getParameter('Img'),
+                    $newFilename
+                );
 
-            //     //On sauvegarde le nouveau nom de l'image
-            //     $avisData->setPicture($newFilename);
-            // }
+                //On sauvegarde le nouveau nom de l'image
+                $avis->setPicture($newFilename);
+            }
 
             //On écrit dans la BDD et on sauvegarder
             $entityManager = $this->doctrine->getManager();
             $entityManager->persist($avis);
             $entityManager->flush();
-
-            $this->addFlash('success', $message);
 
             return $this->redirectToRoute('public');
         }

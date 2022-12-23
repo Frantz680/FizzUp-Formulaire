@@ -75,7 +75,7 @@ class AvisType extends AbstractType
             ->add('email', EmailType::class, [
                 'invalid_message' => "L'email n'est pas valide.",
                 'attr' => ['class' => 'form-control'],
-                'required' => true
+                'required' => false
             ])
 
             ->add('commentaire', CKEditorType::class, [

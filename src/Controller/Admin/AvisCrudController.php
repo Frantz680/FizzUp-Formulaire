@@ -8,6 +8,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -33,9 +35,13 @@ class AvisCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id'),
+            IntegerField::new('note'),
             TextField::new('email'),
             TextField::new('pseudo'),
-            TextField::new('picture'),
+            ImageField::new('picture')
+            ->setBasePath('uploads/')
+            ->setUploadDir('public/uploads/')
+            ->setLabel('Image'),
             TextEditorField::new('commentaire'),
             DateTimeField::new('createdAt')->setFormat('dd MMMM yyyy HH:mm ')->setTimezone('Europe/Paris'),
         ];

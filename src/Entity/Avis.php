@@ -18,7 +18,7 @@ class Avis
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', unique: true)]
+    #[ORM\Column(type: 'string', nullable:true)]
     protected $email;
 
     #[ORM\Column(length: 255)]
