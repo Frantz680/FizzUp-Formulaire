@@ -1,4 +1,4 @@
-
+@import "~bootstrap/scss/bootstrap";
 
 /****************************************************************
 *************************** index.html.twig *********************
@@ -79,6 +79,7 @@
             display: inline-block;
             line-height: unset;
             -webkit-text-stroke: 1px #0957ff;
+            text-decoration: none;
         }
 
         .navbar-logo-img {
@@ -100,12 +101,13 @@
             margin-right: 20px;
             border: 2px solid #0957ff;
             color: #0957ff;
-            padding: 5px;
+            padding: 3px;
             border-radius: 25px;
+            text-decoration: none;
         }
         .navbar-menu-ul-btn-connect:hover {
             border: 2px solid #0957ff;
-            color: white;
+            color: rgb(6, 6, 6);
             cursor: pointer;
         }
 
@@ -173,7 +175,7 @@
 
             .home-flex-title-big {
                 text-align: center;
-                color: #0957ff;
+                color: #264f9e;
                 font-size: 70px;
                 padding-bottom: 50px;
                 font-weight: bold;
@@ -186,11 +188,19 @@
                 margin: 0px auto;
                 width: 100px;
                 display: block;
-                -webkit-text-stroke: 1px #0957ff;
+                -webkit-text-stroke: 1px #264f9e;
+                text-decoration: none;
             }
 
             .home-flex-title-subTitle:hover {
+                -webkit-text-stroke: 1px #000000;
+            }
 
+            .home-flex-title-subTitle-ml {
+                color: white;
+                font-size: 25px;
+                -webkit-text-stroke: 1px #264f9e;
+                text-decoration: none;
             }
         }
     }
@@ -208,11 +218,169 @@
     background-size: cover;
 
     .formulaire-contour {
+        height: 100%;
         border: 1px solid white;
         background-color: rgba(255, 255, 255, 0.8);
         padding-left: 180px;
         padding-right: 180px;
-        padding-top: 100px;
+        padding-top: 150px;
         padding-bottom: 150px;
+
+        .formulaire-contour-border {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 25px;
+            box-shadow: 7px 5px 5px rgba(7, 62, 139, 0.8);
+            border-radius: 60px / 60px;
+
+            .box-title {
+                color: white;
+                display: inline-block;
+                line-height: unset;
+                -webkit-text-stroke: 1px #0957ff;
+            }
+        }
+    }
+
+    .box-footer {
+        padding-top: 20px;
     }
 }
+
+/****************************
+******* END FORMULAIRE ******
+*****************************/
+
+/******** FOOTER *******/
+
+
+
+.footer{
+    background-color: #264f9e;
+
+    .footer-ml {
+        text-align: right;
+        padding: 15px;
+
+        .footer-ml-lien {
+            color: white;
+        }
+
+        .footer-ml-lien:hover {
+            color: rgb(186, 191, 195);
+        }
+    }
+
+    .footer-contact {
+        padding: 15px;
+
+        .footer-contact-lien{
+            color: white;
+        }
+
+        .footer-contact-lien:hover {
+            color: rgb(186, 191, 195);
+        }
+    }
+}
+
+
+/******** END FOOTER *******/
+
+
+/******** RESPONSIVE *******/
+
+@media (max-width: 1000px) {
+    .home {
+        .home-flex {
+            .home-flex-title {
+                padding-left: 90px;
+                padding-right: 90px;
+                padding-top: 60px;
+                padding-bottom: 90px;
+
+                .home-flex-title-big {
+                    font-size: 50px;
+                }
+            }
+        }
+    }
+
+    .formulaire {
+        .formulaire-contour{
+            padding-left: 90px;
+            padding-right: 90px;
+            padding-top: 125px;
+            padding-bottom: 90px;
+        }
+    }
+
+}
+
+
+@media (max-width: 800px) {
+    .formulaire {
+        height: 100%;
+        .formulaire-contour{
+            padding-left: 50px;
+            padding-right: 50px;
+            padding-top: 125px;
+            padding-bottom: 50px;
+        }
+    }
+}
+
+@media (max-width: 700px) {
+    .home {
+        .home-flex {
+            .home-flex-title {
+                padding-left: 50px;
+                padding-right: 50px;
+                padding-top: 30px;
+                padding-bottom: 50px;
+
+                .home-flex-title-big {
+                    font-size: 40px;
+                }
+            }
+        }
+    }
+    
+    .formulaire {
+        .formulaire-contour{
+            padding-left: 50px;
+            padding-right: 50px;
+            padding-top: 125px;
+            padding-bottom: 50px;
+        }
+    }
+}
+
+@media (max-width: 500px) {
+    .home {
+        .home-flex {
+            .home-flex-title {
+                padding-left: 30px;
+                padding-right: 30px;
+                padding-top: 30px;
+                padding-bottom: 30px;
+
+                .home-flex-title-big {
+                    font-size: 30px;
+                }
+            }
+        }
+    }
+
+    .formulaire {
+        .formulaire-contour{
+            padding-left: 30px;
+            padding-right: 30px;
+            padding-top: 125px;
+            padding-bottom: 30px;
+        }
+    }
+
+}
+
+
+/******** END RESPONSIVE *******/

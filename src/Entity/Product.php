@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -23,10 +25,13 @@ class Product
     #[ORM\Column()]
     private string $picture;
 
-
-    #[ORM\ManyToOne(targetEntity:Avis::class, inversedBy:"product", cascade:["persist"])]
-    #[ORM\JoinColumn(name:"avis_id", referencedColumnName:"id")]
+    #[ORM\OneToMany(targetEntity: Avis::class, mappedBy: "product", cascade:["persist"], orphanRemoval: true)]
     private $avis;
+
+    public function __construct()
+    {
+        $this->avis = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -69,17 +74,36 @@ class Product
         return $this;
     }
 
-    public function getAvis(): ?Avis
+    /**
+     * @return Collection<int, Avis>
+     */
+    public function getAvis(): Collection
     {
         return $this->avis;
     }
 
-    public function setAvis(?Avis $avis): self
+    public function addAvi(Avis $avi): self
     {
-        $this->avis = $avis;
+        if (!$this->avis->contains($avi)) {
+            $this->avis->add($avi);
+            $avi->setProduct($this);
+        }
 
         return $this;
     }
+
+    public function removeAvi(Avis $avi): self
+    {
+        if ($this->avis->removeElement($avi)) {
+            // set the owning side to null (unless already changed)
+            if ($avi->getProduct() === $this) {
+                $avi->setProduct(null);
+            }
+        }
+
+        return $this;
+    }
+
 
 
 }

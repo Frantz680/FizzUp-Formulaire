@@ -8,6 +8,8 @@ use Symfony\Component\Form\AbstractType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\Type;
+use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,7 +17,9 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class AvisType extends AbstractType
 {
@@ -28,16 +32,35 @@ class AvisType extends AbstractType
                 'label' => 'Nom du produit',
                 'class' => Product::class,
                 'choice_label' => 'title',
-                'mapped' => false,
                 'required' => true
             ))
+
+            ->add('note', IntegerType::class, [
+                'constraints' => new Type(['type' => 'numeric']),
+                'label' => 'Noté le produit de 0 à 9',
+                'data' => 0, // default value
+                'required' => true,
+                'constraints' => array(
+                    new NotBlank(), 
+                    new Type('integer'), 
+                    new Regex(array(
+                        'pattern' => '/^[0-9]\d*$/',
+                        'message' => "Veuillez n'utiliser que des nombres positifs."
+                        )
+                    ),
+                    new Length(array(
+                        'max' => 1,
+                        'maxMessage' => "Vous devez avoir moins de {{ limit }} caracteres.",
+                    ))
+                )
+            ])
 
             ->add('pseudo', TextType::class, [
                 'attr' => ['class' => 'form-control'],
                 'required' => true,
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Entrez votre prénom où pseudo',
+                        'message' => 'Veuillez écrire votre prénom où pseudo',
                     ]),
                     new Length([
                         'min' => 2,
@@ -52,7 +75,7 @@ class AvisType extends AbstractType
             ->add('email', EmailType::class, [
                 'invalid_message' => "L'email n'est pas valide.",
                 'attr' => ['class' => 'form-control'],
-                'required' => true
+                'required' => false
             ])
 
             ->add('commentaire', CKEditorType::class, [

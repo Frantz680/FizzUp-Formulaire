@@ -18,7 +18,7 @@ class Avis
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: 'string', unique: true)]
+    #[ORM\Column(type: 'string', nullable:true)]
     protected $email;
 
     #[ORM\Column(length: 255)]
@@ -27,19 +27,22 @@ class Avis
     #[ORM\Column(type: 'text')]
     private string $commentaire;
 
+    #[ORM\Column(type: 'text')]
+    private string $note;
+
     #[ORM\Column(nullable:true)]
     private string $picture;
 
     #[ORM\Column(type:"datetime", nullable:false)]
     private $createdAt;
     
-    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: "avis", cascade:["persist"], orphanRemoval: true)]
+    #[ORM\ManyToOne(targetEntity:Product::class, inversedBy:"avis", cascade:["persist"])]
+    #[ORM\JoinColumn(name:"product_id", referencedColumnName:"id")]
     private $product;
 
     public function __construct()
     {
         $this->createdAt = new \Datetime;
-        $this->product = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -107,36 +110,28 @@ class Avis
         return $this;
     }
 
-    /**
-     * @return Collection<int, Product>
-     */
-    public function getProduct(): Collection
+    public function getProduct(): ?Product
     {
         return $this->product;
     }
 
-    public function addProduct(Product $product): self
+    public function setProduct(?Product $product): self
     {
-        if (!$this->product->contains($product)) {
-            $this->product->add($product);
-            $product->setAvis($this);
-        }
+        $this->product = $product;
 
         return $this;
     }
 
-    public function removeProduct(Product $product): self
+    public function getNote(): ?string
     {
-        if ($this->product->removeElement($product)) {
-            // set the owning side to null (unless already changed)
-            if ($product->getAvis() === $this) {
-                $product->setAvis(null);
-            }
-        }
+        return $this->note;
+    }
+
+    public function setNote(string $note): self
+    {
+        $this->note = $note;
 
         return $this;
     }
-
-
 
 }
