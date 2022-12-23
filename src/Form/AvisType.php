@@ -60,7 +60,7 @@ class AvisType extends AbstractType
                 'required' => true,
                 'constraints' => [
                     new NotBlank([
-                        'message' => 'Entrez votre prénom où pseudo',
+                        'message' => 'Veuillez écrire votre prénom où pseudo',
                     ]),
                     new Length([
                         'min' => 2,
